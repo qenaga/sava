@@ -1,8 +1,8 @@
 ---
 layout: lesson
 title: January
-parent: Months
-section: 4
-navorder: 4
+has_children: true
+month: 5
+nav_order: 5
 permalink: jan
 ---

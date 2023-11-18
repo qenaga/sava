@@ -2,41 +2,25 @@
 layout: default
 ---
 
-{% comment %} Category title now in page header
-{% if page.description %}
-	<h1>{{page.description}}</h1>
- {% else %}
-	<h1>{{page.title}}</h1>
- {% endif %}
-{% endcomment %}
- 
+
 {{content}}
 
-<div class="PageNavigation">
-  {% if page.section > 1 %}
-  	{% assign num = page.section | minus: 1 %}
-  {% else %}
-  	{% assign num = site.number_categories %}
-  {% endif %}
-  	{% assign new = site.data.categories | where: "secnum",num | first %}
-  	{% if new.name.size > 0 %}
-		{% assign lnk = new.name | prepend: "phrases/" %}
-		<a class="prev" href="{% link {{lnk}}  %}">&laquo; {{ new.section }}</a>
-    {% endif %}
-  {% if page.section < site.number_categories %}
-  	{% assign num = page.section | plus: 1 %}
-  {% else %}
-  	{% assign num = 1 %}
-  {% endif %}
-	{% assign new = site.data.categories | where: "secnum",num | first %}
-	{% if new.name.size > 0 %}
-		{% assign lnk = new.name | prepend: "phrases/" %}
-		<a class="next" href="{% link {{lnk}}  %}"> {{ new.section }} &raquo;</a>
-	{% endif %}
-</div>
+
+{% if page.has_children %}
+	{% assign thesection = 1 %}
+	{% assign themonthname = page.title %}
+{% else %}
+	{% assign thesection = page.section %}
+	{% assign themonthname = page.parent %}
+{% endif %}
 
 
-{% assign thephrases = site.data.phrases | where:"secnum",page.section %}
+{% assign thelessons = site.data.lessons | where:"month",page.month | where:"lesson",thesection | first %}
+<h2> {{ thesection | append: ". " | append: thelessons.title }}</h2>
+
+<hr>
+
+{% assign thephrases = site.data.phrases | where:"month",page.month | where: "lesson",thesection %}
 {% for row in thephrases %}
 	{% if row.audio %}
 		{% assign theaudio = row.audio %}
@@ -51,47 +35,59 @@ layout: default
 		{% else %}
 			{% assign track = row.order %}
 		{% endif %}
-		{% assign theaudio = category | prepend: "tnc-" | append: "-" | append: track | append: ".mp3" %}
+		{% assign audio_prefix = themonthname | downcase | truncate:3, "" | append: "-" %}
+		{% assign theaudio = category | prepend: audio_prefix | append: "-" | append: track | append: ".mp3" %}
 	{% endif %}
 	<div class="audiobox">
 	<div class="text">
-		<span class="tnc">{{row.tnc}}</span><br/>
-		 <span class="gloss">{{row.eng}}</span></td>
+		<span class="tnc">{{row.den}}</span><br/>
+		<span class="gloss">{{row.eng}}</span>
 	</div>
    <div class="audio"><audio src="{{site.baseurl}}/{{site.audiopath}}/{{theaudio}}" controls type="audio/mpeg">Your browser does not support the audio tag.</audio>
    <!-- <br/>{{site.baseurl}}/{{site.audiopath}}/{{theaudio}}  -->
    </div></div> 
 	<hr/>
-{% comment %}
-   <!--
-     <p><audio src="{{site.audiourl}}/{{row.audio}}" controls type="audio/mpeg" style="float:left;margin-right:20px;width:300px;">Your browser does not support the audio tag.</audio>
-   <b>{{row.tnc}}</b><br/> {{row.eng}}</p>
-   -->
-{% endcomment %} 
 {% endfor %}
 
 
-<div class="PageNavigationBottom">
-  {% if page.section > 1 %}
-  	{% assign num = page.section | minus: 1 %}
-  {% else %}
-  	{% assign num = site.number_categories %}
-  {% endif %}
-  	{% assign new = site.data.categories | where: "secnum",num | first %}
-  	{% if new.name.size > 0 %}
-		{% assign lnk = new.name | prepend: "phrases/" %}
-		<a class="prev" href="{% link {{lnk}}  %}">&laquo; {{ new.section }}</a>
-    {% endif %}
-	<a class="back" href="#top">Back to top</a>
-
-  {% if page.section < site.number_categories %}
-  	{% assign num = page.section | plus: 1 %}
-  {% else %}
-  	{% assign num = 1 %}
-  {% endif %}
-	{% assign new = site.data.categories | where: "secnum",num | first %}
-	{% if new.name.size > 0 %}
-		{% assign lnk = new.name | prepend: "phrases/" %}
-		<a class="next" href="{% link {{lnk}}  %}"> {{ new.section }} &raquo;</a>
+{% assign themonth = site.data.months | where:"number",page.month | first %}
+{% if thesection > 1 %}
+	{% assign prevsection = thesection | minus: 1 %}
+	{% assign prevmonthshort = themonth.short %}
+{% else %}
+	{% if page.month > 1 %}
+		{% assign prevmonth = page.month | minus:1 %}
+	{% else %}
+		{% assign prevmonth = site.number_lessons %}
 	{% endif %}
+	{% assign thelessons = site.data.lessons | where: "month",prevmonth | sort:"lesson" | last %}
+	{% assign prevsection = thelessons.lesson %}
+	{% assign prevmonthshort =  themonth.prev %}
+{% endif %}
+{% assign prevlink =  prevmonthshort  | append: prevsection | append: ".md" | prepend: "lessons/" %}
+
+{% comment %} Get highest lesson number {% endcomment %}
+{% assign thelessons = site.data.lessons | where: "month",page.month | sort:"lesson" | last %}
+{% assign maxsection = thelessons.lesson | to_integer %}
+{% if thesection < maxsection %}
+	{% assign nextsection = thesection | plus:1 %}
+	{% assign nextmonthshort = themonth.short %}
+{% else %}
+  {% if page.month < site.number_lessons %}
+  	{% assign nextmonth = page.month | plus: 1 %}
+  {% else %}
+  	{% assign nextmonth = 1 %}
+  {% endif %}
+  {% assign nextsection = 1 %}
+  {% assign nextmonthshort = themonth.next %}
+{% endif %}
+{% assign nextlink =  nextmonthshort  | append: nextsection | append: ".md" | prepend: "lessons/" %}
+
+
+<div class="PageNavigation">
+
+		<a class="prev" href="{% link  {{prevlink}} %}">&laquo; Prev </a>
+
+		<a class="next" href="{% link {{nextlink}}  %}"> Next &raquo;</a>
 </div>
+

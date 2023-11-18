@@ -1,0 +1,17 @@
+<!-- redirect to first lesson of month -->
+{% assign thelesson = site.data.lessons | where: "month", page.month | where: "lesson", 1 %}
+{% assign thepage = thelesson.title %}
+<html>
+ <head>
+     <meta charset="utf-8"/>
+     <meta http-equiv="refresh" content="0;url={{ thepage }}"/>
+     <link rel="canonical" href="{{ thepage }}"/>
+     <script type="text/javascript">
+             window.location.href = "{{ thepage }}"
+     </script>
+     <title> {{ page.title}} </title>
+ </head>
+ <body>
+ If you are not redirected automatically, follow <a href='{{ thepage }}'>this link</a>.
+ </body>
+ </html>

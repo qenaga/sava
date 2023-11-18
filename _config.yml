@@ -9,7 +9,7 @@ audiopath: "assets/audio"
 exclude:
   - ripped/
   - scripts/
-  - text/
+  - texts/
   
 #aux_links:
 #  Template Repository: https://github.com/just-the-docs/just-the-docs-template
@@ -20,7 +20,8 @@ gh_edit_link: false # show or hide edit this page link
 
 #footer_content: "Copyright &copy; 2003-2023 Irene Solomon Arnold, Gary Holton, and Rick Thoman. <a href='credits.html'>Credits</a>."
 
-number_categories: 11 # total number of categories in lessons.csv
+number_lessons: 10 # total number of categories in lessons.csv
+
 
 color_scheme: color
 
@@ -32,14 +33,15 @@ defaults:
     values:
       layout: "lesson"
       nav_exclude: # true
-      parent: Month
+      has_toc: false
+        # parent: Month
 
 
 search_enabled: false
 search:
   # Split pages into sections that can be searched individually
   # Supports 1 - 6, default: 2
-  heading_level: 2
+  heading_level: 3
   # Maximum amount of previews per search result
   # Default: 3
   previews: 5

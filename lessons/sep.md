@@ -1,8 +1,8 @@
 ---
 layout: lesson
 title: September
-parent: Months
-section: 0
-navorder: 0
+has_children: true
+month: 1
+nav_order: 1
 permalink: sep
 ---
