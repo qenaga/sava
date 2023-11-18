@@ -36,6 +36,10 @@ defaults:
       has_toc: false
         # parent: Month
 
+nav_external_links:
+#   - title: qenaga.org
+#     url: https://qenaga.org
+#     hide_icon: true
 
 search_enabled: false
 search:
