@@ -37,9 +37,12 @@ defaults:
         # parent: Month
 
 nav_external_links:
-#   - title: qenaga.org
-#     url: https://qenaga.org
-#     hide_icon: true
+  - title: "download pdf"
+    url: "/assets/pdf/UIlessons.pdf"
+    hide_icon: true
+  - title: qenaga.org
+    url: https://qenaga.org
+    hide_icon: true
 
 search_enabled: false
 search:
