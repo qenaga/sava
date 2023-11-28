@@ -2,7 +2,9 @@ title: Upper Inlet Dena'ina Lessons
 description: Dena'ina Language Lessons by Sava Stephan
 theme: just-the-docs
 
-url: https://qenaga.github.io/sava
+#url: https://qenaga.github.io/sava
+url: https://sava.qenaga.org
+
 
 audiopath: "assets/audio"
 
@@ -37,7 +39,7 @@ defaults:
         # parent: Month
 
 nav_external_links:
-  - title: "download pdf"
+  - title: "[download pdf]"
     url: "/assets/pdf/UIlessons.pdf"
     hide_icon: true
   - title: qenaga.org
