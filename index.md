@@ -30,4 +30,4 @@ Originally published in 2004 as a CD-ROM and booklet by the [Alaska Native Langu
 and the Dena'ina Archiving, Access and Training Project, with funding from the National Science Foundation.
 [Alaska Native Heritage Center](http://www.alaskanative.net). 
 Original web version by <a href="http://www.lostplot.net">Megan Thornley</a>, with revisions by Gary Holton. 
-
+Thanks to Hna’estał Edna Standifer of [Tebughna Foundation](https://www.tebughnafoundation.com/) for inspiring and encouraging this reboot of Sava Stephan's language lessons and the [Qenaga.org](http://qenaga.org) website.
